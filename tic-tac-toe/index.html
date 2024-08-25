@@ -4,7 +4,7 @@
         <title>TIC-TAC-TOE</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <style>
@@ -29,35 +29,70 @@
             .c3 {
                 border-right: none;
             }
+            #result {
+                display: none;
+                color: white;
+                font-size: 36px;
+            }
+            #result-img {
+                width: 50px;
+                height: 50px;
+            }
         </style>
 
         <script>
             let turn = 'x';
-            let board = ['blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank'];
+            const board = ['blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank'];
+            const winningCombos = [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+                [0, 3, 6],
+                [1, 4, 7],
+                [2, 5, 8],
+                [0, 4, 8],
+                [2, 4, 6]
+            ];
             function handleSquareClick(index) {
                 if (board[index] != 'blank') {
                     return;
                 }
                 setSquare(index, turn);
                 turn = turn === 'x' ? 'o' : 'x';
+                checkForWinner();
             }
             function reset() {
                 turn = 'x';
                 for (let i = 0; i < 9; i++) {
                     setSquare(i, 'blank');
                 }
+                document.getElementById('result-img').src = `img/blank.png`;
+                document.getElementById('result').style.display = 'none';
             }
             function setSquare(index, value) {
                 let square = document.getElementById(index);
                 square.src = `img/${value}.png`;
                 board[index] = value;
             }
+            function checkForWinner() {
+                for (let i = 0; i < winningCombos.length; i++) {
+                    let combo = winningCombos[i];
+                    let a = combo[0];
+                    let b = combo[1];
+                    let c = combo[2];
+                    if (board[a] != 'blank' && board[a] === board[b] && board[a] === board[c]) {
+                        document.getElementById('result-img').src = `img/${board[a]}.png`;
+                        document.getElementById('result').style.display = 'block';
+                        return;
+                    }
+                }
+            }
         </script>
 
     </head>
     <body>
 
-        <div class="container">
+        <div class="container m-4">
             <div class="row">
                 <div class="col cell r1 c1"><img id="0" onclick="handleSquareClick(0)" src="img/blank.png" /></div>
                 <div class="col cell r1 c2"><img id="1" onclick="handleSquareClick(1)" src="img/blank.png" /></div>
@@ -71,10 +106,15 @@
                 <div class="col cell r3 c2"><img id="7" onclick="handleSquareClick(7)" src="img/blank.png" /></div>
                 <div class="col cell r3 c3"><img id="8" onclick="handleSquareClick(8)" src="img/blank.png" /></div>
             </div>
-            <div class="d-flex justify-content-center" id="buttons">
-                <button type="button" class="btn btn-primary" onclick="reset()">Reset</button>
-            </div>
-            <div class="d-flex justify-content-full" id="result">
+            <div class="container d-flex justify-content-between">
+                <div>
+                    <button type="button" class="btn btn-primary" onclick="reset()">Reset</button>
+                </div>
+                <div>
+                    <div class="" id="result">
+                        Winner: <img id="result-img" src="img/blank.png" />
+                    </div>
+                </div>
             </div>
         </div>
     </body>
