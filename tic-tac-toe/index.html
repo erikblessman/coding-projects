@@ -33,17 +33,24 @@
 
         <script>
             let turn = 'x';
-            function handleSquareClick(square) {
-                if (square.src.includes('blank.png')) {
-                    square.src = `img/${turn}.png`;
-                    turn = turn === 'x' ? 'o' : 'x';
+            let board = ['blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank'];
+            function handleSquareClick(index) {
+                if (board[index] != 'blank') {
+                    return;
                 }
+                setSquare(index, turn);
+                turn = turn === 'x' ? 'o' : 'x';
             }
             function reset() {
                 turn = 'x';
                 for (let i = 0; i < 9; i++) {
-                    document.getElementById(i).src = 'img/blank.png';
+                    setSquare(i, 'blank');
                 }
+            }
+            function setSquare(index, value) {
+                let square = document.getElementById(index);
+                square.src = `img/${value}.png`;
+                board[index] = value;
             }
         </script>
 
@@ -52,17 +59,17 @@
 
         <div class="container">
             <div class="row">
-                <div class="col cell r1 c1"><img id="0" onclick="handleSquareClick(this)" src="img/blank.png" /></div>
-                <div class="col cell r1 c2"><img id="1" onclick="handleSquareClick(this)" src="img/blank.png" /></div>
-                <div class="col cell r1 c3"><img id="2" onclick="handleSquareClick(this)" src="img/blank.png" /></div>
+                <div class="col cell r1 c1"><img id="0" onclick="handleSquareClick(0)" src="img/blank.png" /></div>
+                <div class="col cell r1 c2"><img id="1" onclick="handleSquareClick(1)" src="img/blank.png" /></div>
+                <div class="col cell r1 c3"><img id="2" onclick="handleSquareClick(2)" src="img/blank.png" /></div>
             </div><div class="row">
-                <div class="col cell r2 c1"><img id="3" onclick="handleSquareClick(this)" src="img/blank.png" /></div>
-                <div class="col cell r2 c2"><img id="4" onclick="handleSquareClick(this)" src="img/blank.png" /></div>
-                <div class="col cell r2 c3"><img id="5" onclick="handleSquareClick(this)" src="img/blank.png" /></div>
+                <div class="col cell r2 c1"><img id="3" onclick="handleSquareClick(3)" src="img/blank.png" /></div>
+                <div class="col cell r2 c2"><img id="4" onclick="handleSquareClick(4)" src="img/blank.png" /></div>
+                <div class="col cell r2 c3"><img id="5" onclick="handleSquareClick(5)" src="img/blank.png" /></div>
             </div><div class="row">
-                <div class="col cell r3 c1"><img id="6" onclick="handleSquareClick(this)" src="img/blank.png" /></div>
-                <div class="col cell r3 c2"><img id="7" onclick="handleSquareClick(this)" src="img/blank.png" /></div>
-                <div class="col cell r3 c3"><img id="8" onclick="handleSquareClick(this)" src="img/blank.png" /></div>
+                <div class="col cell r3 c1"><img id="6" onclick="handleSquareClick(6)" src="img/blank.png" /></div>
+                <div class="col cell r3 c2"><img id="7" onclick="handleSquareClick(7)" src="img/blank.png" /></div>
+                <div class="col cell r3 c3"><img id="8" onclick="handleSquareClick(8)" src="img/blank.png" /></div>
             </div>
             <div class="d-flex justify-content-center" id="buttons">
                 <button type="button" class="btn btn-primary" onclick="reset()">Reset</button>
