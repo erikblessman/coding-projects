@@ -11,7 +11,7 @@ const winningCombos = [
     [2, 4, 6]
 ];
 function handleSquareClick(index) {
-    if (board[index] != 'blank') {
+    if (board[index] != 'blank' || winner) {
         return;
     }
     setSquare(index, turn);
@@ -19,6 +19,7 @@ function handleSquareClick(index) {
     checkForWinner();
 }
 function reset() {
+    winner = null;
     turn = 'x';
     for (let i = 0; i < 9; i++) {
         setSquare(i, 'blank');
@@ -33,19 +34,19 @@ function setSquare(index, value) {
     square.src = `img/${value}.png`;
     board[index] = value;
 }
+let winner = null;
 function checkForWinner() {
     for (let i = 0; i < winningCombos.length; i++) {
         let combo = winningCombos[i];
-        let a = combo[0];
-        let b = combo[1];
-        let c = combo[2];
+        const [a, b, c] = combo;
         if (board[a] != 'blank' && board[a] === board[b] && board[a] === board[c]) {
             for (let j = 0; j < 3; j++) {
                 document.getElementById(combo[j]).style.border = '1px solid green';
                 document.getElementById(combo[j]).style.borderRadius = '100%';
             }
+            winner = board[a];
             document.getElementById('result-label').innerHTML = 'Winner';
-            document.getElementById('result-img').src = `img/${board[a]}.png`;
+            document.getElementById('result-img').src = `img/${winner}.png`;
             return;
         }
     }
