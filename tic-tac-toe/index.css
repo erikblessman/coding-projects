@@ -1,0 +1,18 @@
+/* #region Global */
+
+/* ************************************************************
+ * This is the tag selector for the html body tag (the whole
+ * page).
+ ************************************************************ */
+body {
+    /* use a black background to make the game board stand out */
+    background-color: #000;
+}
+
+/* #endregion Global */
+
+/* #region Game Board */
+
+/* LESSON 1 CSS STYLES GO HERE */
+
+/* #endregion Global */
