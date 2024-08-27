@@ -15,7 +15,7 @@ _NOTE: This will not look like a table (or anything really) until we setup the s
 
 ```html
 <div>
-    <div>
+    <div class="game-board">
         <div><img src="img/blank.png" /></div>
         <div><img src="img/blank.png" /></div>
         <div><img src="img/blank.png" /></div>
@@ -42,6 +42,8 @@ _Note: After you add this, the page should go from white to black_
 ```
 
 ### 3. Update index.css folder by adding the following css styles in the Game Board region
+
+_Note: After you add this, you should see a 3x3 grid/table with white borders_
 
 ```css
 /* ************************************************************
